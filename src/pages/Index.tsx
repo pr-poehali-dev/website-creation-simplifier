@@ -71,15 +71,18 @@ export default function Index() {
     return () => observer.disconnect();
   }, [statsVisible]);
   const services = [
-    { id: '01', title: 'Международный Desk', category: 'companies' },
-    { id: '02', title: 'Недвижимость и строительство', category: 'companies' },
-    { id: '03', title: 'Государственно-частное партнерство', category: 'companies' },
-    { id: '04', title: 'Энергетика и природные ресурсы', category: 'companies' },
-    { id: '05', title: 'ИСИТ', category: 'companies' },
-    { id: '06', title: 'Несостоятельность (банкротство)', category: 'companies' },
-    { id: '01', title: 'Private Wealth', category: 'individuals' },
+    { id: '01', title: 'Недвижимость и строительство', category: 'companies' },
+    { id: '02', title: 'Государственно-частное партнёрство', category: 'companies' },
+    { id: '04', title: 'IP/IT', category: 'companies' },
+    { id: '05', title: 'Банкротство', category: 'companies' },
+    { id: '06', title: 'Разрешение споров', category: 'companies' },
+    { id: '07', title: 'Общие вопросы', category: 'companies' },
+    { id: '08', title: 'Корпоративное право', category: 'companies' },
+    { id: '09', title: 'Налоговое и административное право', category: 'companies' },
+    { id: '10', title: 'Уголовно-правовая защита', category: 'companies' },
+    { id: '01', title: 'Личное состояние', category: 'individuals' },
     { id: '02', title: 'Наследственное планирование', category: 'individuals' },
-    { id: '03', title: 'Урегулирование конфликтных ситуаций', category: 'individuals' }
+    { id: '03', title: 'Разрешение конфликтов', category: 'individuals' }
   ];
 
   const companyServices = services.filter(s => s.category === 'companies');
