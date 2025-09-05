@@ -71,20 +71,15 @@ export default function Index() {
     return () => observer.disconnect();
   }, [statsVisible]);
   const services = [
-    { id: '01', title: 'Корпоративное право', category: 'companies' },
-    { id: '02', title: 'Слияния и поглощения', category: 'companies' },
-    { id: '03', title: 'Инвестиционное право', category: 'companies' },
-    { id: '04', title: 'Банковское право', category: 'companies' },
-    { id: '05', title: 'Трудовое право', category: 'companies' },
-    { id: '06', title: 'Интеллектуальная собственность', category: 'companies' },
-    { id: '07', title: 'Налоговое консультирование', category: 'companies' },
-    { id: '08', title: 'Коммерческие споры', category: 'companies' },
-    { id: '09', title: 'Недвижимость', category: 'companies' },
-    { id: '10', title: 'IT и телекоммуникации', category: 'companies' },
-    { id: '11', title: 'Антимонопольное право', category: 'companies' },
-    { id: '12', title: 'Семейное право', category: 'individuals' },
-    { id: '13', title: 'Уголовная защита', category: 'individuals' },
-    { id: '14', title: 'Наследственное право', category: 'individuals' }
+    { id: '01', title: 'Международный Desk', category: 'companies' },
+    { id: '02', title: 'Недвижимость и строительство', category: 'companies' },
+    { id: '03', title: 'Государственно-частное партнерство', category: 'companies' },
+    { id: '04', title: 'Энергетика и природные ресурсы', category: 'companies' },
+    { id: '05', title: 'ИСИТ', category: 'companies' },
+    { id: '06', title: 'Несостоятельность (банкротство)', category: 'companies' },
+    { id: '01', title: 'Private Wealth', category: 'individuals' },
+    { id: '02', title: 'Наследственное планирование', category: 'individuals' },
+    { id: '03', title: 'Урегулирование конфликтных ситуаций', category: 'individuals' }
   ];
 
   const companyServices = services.filter(s => s.category === 'companies');
@@ -119,15 +114,28 @@ export default function Index() {
       <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <Link to="/" className="text-2xl font-bold text-foreground">
-              ASTRA LEGAL
+            <Link to="/" className="text-2xl font-bold text-foreground italic" style={{fontFamily: 'serif'}}>
+              ASTRA Legal
             </Link>
-            <nav className="hidden md:flex items-center gap-8">
-              <Link to="/services" className="text-foreground hover:text-primary transition-colors">Услуги</Link>
-              <Link to="/about" className="text-foreground hover:text-primary transition-colors">О нас</Link>
-              <Link to="/team" className="text-foreground hover:text-primary transition-colors">Команда</Link>
-              <Link to="/contacts" className="text-foreground hover:text-primary transition-colors">Контакты</Link>
-            </nav>
+            <div className="flex items-center gap-8">
+              <div className="hidden md:flex items-center gap-2 text-sm">
+                <button className="text-muted-foreground hover:text-foreground transition-colors">En</button>
+                <span className="text-muted-foreground">|</span>
+                <button className="text-primary font-medium">Ru</button>
+              </div>
+              <nav className="hidden md:flex items-center gap-8">
+                <div className="relative group">
+                  <Link to="/services" className="text-foreground hover:text-primary transition-colors flex items-center gap-1">
+                    Услуги
+                    <Icon name="ChevronDown" size={16} className="group-hover:rotate-180 transition-transform" />
+                  </Link>
+                </div>
+                <Link to="/about" className="text-foreground hover:text-primary transition-colors">О нас</Link>
+                <Link to="/team" className="text-foreground hover:text-primary transition-colors">Команда и карьера</Link>
+                <Link to="/contacts" className="text-foreground hover:text-primary transition-colors">Контакты</Link>
+              </nav>
+              <Icon name="Search" size={20} className="text-foreground hover:text-primary cursor-pointer transition-colors" />
+            </div>
             <Link to="/contact-form">
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 Написать нам
@@ -141,37 +149,42 @@ export default function Index() {
       <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/img/98d6f1c7-f23b-4465-83b4-61cec10c0ab5.jpg" 
-            alt="Legal office background"
+            src="/img/05c4fb0e-24ff-4cb1-b997-ab10f2a07841.jpg" 
+            alt="City skyline background"
             className="w-full h-full object-cover"
             style={{
               transform: `translateY(${parallaxOffset}px)`,
               transition: 'transform 0.1s ease-out'
             }}
           />
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-black/50"></div>
         </div>
         
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-6">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight animate-fade-in-up">
-            Юридические решения
-            <span className="block text-primary">нового уровня</span>
-            для вашего бизнеса
+            ASTRA Legal — это
+            <span className="block">юридическая</span>
+            <span className="block">фирма с более</span>
+            <span className="block">чем</span>
+            <span className="block">двадцатилетним</span>
+            <span className="block">опытом.</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 opacity-90 animate-fade-in" style={{animationDelay: '0.3s'}}>
-            Профессиональная правовая поддержка компаний и частных лиц
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{animationDelay: '0.6s'}}>
-            <Link to="/contact-form">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg">
-                Получить консультацию
-              </Button>
-            </Link>
-            <Link to="/services">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-foreground px-8 py-4 text-lg">
-                Наши услуги
-              </Button>
-            </Link>
+          <div className="mt-12 animate-fade-in" style={{animationDelay: '0.3s'}}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Право с особым
+            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold">
+              подходом.
+            </h2>
+          </div>
+          <div className="mt-8 animate-fade-in" style={{animationDelay: '0.6s'}}>
+            <Button 
+              variant="outline" 
+              className="border-white text-white hover:bg-white hover:text-foreground px-6 py-3 text-sm font-medium"
+            >
+              Прокрутить для изучения
+              <Icon name="ChevronDown" size={16} className="ml-2" />
+            </Button>
           </div>
         </div>
 
@@ -204,66 +217,88 @@ export default function Index() {
       {/* Services Overview */}
       <section id="services" className="py-20">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">Наши услуги</h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Комплексная правовая поддержка для бизнеса и частных лиц
-            </p>
+          <div className="mb-16">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="h-1 w-12 bg-primary"></div>
+              <h2 className="text-lg text-muted-foreground">Наши услуги</h2>
+            </div>
+            <h3 className="text-4xl md:text-5xl font-bold mb-12 text-foreground max-w-4xl">
+              Мы предоставляем юридические услуги
+              <br />в самых сложных областях права.
+            </h3>
           </div>
 
           {/* For Companies */}
           <div className="mb-16">
             <h3 className="text-2xl font-bold mb-8 text-foreground">Для компаний</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl">
               {companyServices.map((service, index) => (
-                <Card key={service.id} className="group cursor-pointer hover:shadow-lg transition-all duration-300 animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
-                  <CardContent className="p-6">
-                    <div className="text-primary text-sm font-semibold mb-2">{service.id}</div>
-                    <h4 className="text-lg font-semibold group-hover:text-primary transition-colors">
-                      {service.title}
-                    </h4>
-                  </CardContent>
-                </Card>
+                <div key={service.id} className="group cursor-pointer animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
+                  <div className="flex items-start gap-4">
+                    <div className="text-4xl font-bold text-primary group-hover:text-primary/80 transition-colors">
+                      {service.id}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                        {service.title}
+                      </h4>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
 
           {/* For Individuals */}
           <div>
-            <h3 className="text-2xl font-bold mb-8 text-foreground">Для физических лиц</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <h3 className="text-2xl font-bold mb-8 text-foreground">Для частных лиц</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl">
               {individualServices.map((service, index) => (
-                <Card key={service.id} className="group cursor-pointer hover:shadow-lg transition-all duration-300 animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
-                  <CardContent className="p-6">
-                    <div className="text-primary text-sm font-semibold mb-2">{service.id}</div>
-                    <h4 className="text-lg font-semibold group-hover:text-primary transition-colors">
-                      {service.title}
-                    </h4>
-                  </CardContent>
-                </Card>
+                <div key={service.id} className="group cursor-pointer animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
+                  <div className="flex items-start gap-4">
+                    <div className="text-4xl font-bold text-primary group-hover:text-primary/80 transition-colors">
+                      {service.id}
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                        {service.title}
+                      </h4>
+                    </div>
+                  </div>
+                </div>
               ))}
+            </div>
+            
+            {/* CTA Button */}
+            <div className="mt-12">
+              <Link to="/services">
+                <Button 
+                  variant="outline" 
+                  className="border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-full transition-all duration-300"
+                >
+                  <div className="flex items-center gap-3">
+                    <div>
+                      <div className="font-medium">Услуги</div>
+                      <div className="text-xs text-muted-foreground">Узнать больше об услугах</div>
+                    </div>
+                    <Icon name="ArrowRight" size={16} />
+                  </div>
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us */}
-      <section className="py-20 bg-secondary/20">
+      {/* Office Image Section */}
+      <section className="py-20">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">Почему выбирают нас</h2>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {advantages.map((advantage, index) => (
-              <div key={index} className="text-center animate-fade-in" style={{animationDelay: `${index * 0.2}s`}}>
-                <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Icon name="CheckCircle" size={32} className="text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-4 text-foreground">{advantage.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{advantage.description}</p>
-              </div>
-            ))}
+          <div className="max-w-6xl mx-auto">
+            <img 
+              src="/img/cc13940e-0c80-4042-80e4-b41e739040d1.jpg" 
+              alt="Modern office interior with city view"
+              className="w-full h-96 object-cover rounded-lg shadow-lg"
+            />
           </div>
         </div>
       </section>
