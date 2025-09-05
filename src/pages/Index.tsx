@@ -1,11 +1,75 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import Icon from '@/components/ui/icon';
+import { Link } from 'react-router-dom';
 
 export default function Index() {
+  const [yearsCount, setYearsCount] = useState(0);
+  const [experienceCount, setExperienceCount] = useState(0);
+  const [parallaxOffset, setParallaxOffset] = useState(0);
+  const heroRef = useRef<HTMLElement>(null);
+  const statsRef = useRef<HTMLElement>(null);
+  const [statsVisible, setStatsVisible] = useState(false);
+
+  // Параллакс эффект
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.pageYOffset;
+      setParallaxOffset(scrolled * 0.5);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Анимированные счетчики
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !statsVisible) {
+          setStatsVisible(true);
+          
+          // Анимация счетчика лет
+          const yearsTarget = 20;
+          let yearsStart = 0;
+          const yearsIncrement = yearsTarget / 50;
+          const yearsTimer = setInterval(() => {
+            yearsStart += yearsIncrement;
+            if (yearsStart >= yearsTarget) {
+              setYearsCount(yearsTarget);
+              clearInterval(yearsTimer);
+            } else {
+              setYearsCount(Math.ceil(yearsStart));
+            }
+          }, 30);
+          
+          // Анимация счетчика опыта
+          const expTarget = 15;
+          let expStart = 0;
+          const expIncrement = expTarget / 50;
+          const expTimer = setInterval(() => {
+            expStart += expIncrement;
+            if (expStart >= expTarget) {
+              setExperienceCount(expTarget);
+              clearInterval(expTimer);
+            } else {
+              setExperienceCount(Math.ceil(expStart));
+            }
+          }, 30);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (statsRef.current) {
+      observer.observe(statsRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [statsVisible]);
   const services = [
     { id: '01', title: 'Корпоративное право', category: 'companies' },
     { id: '02', title: 'Слияния и поглощения', category: 'companies' },
@@ -55,29 +119,35 @@ export default function Index() {
       <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 border-b">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="text-2xl font-bold text-foreground">
+            <Link to="/" className="text-2xl font-bold text-foreground">
               ASTRA LEGAL
-            </div>
+            </Link>
             <nav className="hidden md:flex items-center gap-8">
-              <a href="#services" className="text-foreground hover:text-primary transition-colors">Услуги</a>
-              <a href="#about" className="text-foreground hover:text-primary transition-colors">О нас</a>
-              <a href="#team" className="text-foreground hover:text-primary transition-colors">Команда</a>
-              <a href="#contacts" className="text-foreground hover:text-primary transition-colors">Контакты</a>
+              <Link to="/services" className="text-foreground hover:text-primary transition-colors">Услуги</Link>
+              <Link to="/about" className="text-foreground hover:text-primary transition-colors">О нас</Link>
+              <Link to="/team" className="text-foreground hover:text-primary transition-colors">Команда</Link>
+              <Link to="/contacts" className="text-foreground hover:text-primary transition-colors">Контакты</Link>
             </nav>
-            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              Написать нам
-            </Button>
+            <Link to="/contact-form">
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                Написать нам
+              </Button>
+            </Link>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
             src="/img/98d6f1c7-f23b-4465-83b4-61cec10c0ab5.jpg" 
             alt="Legal office background"
             className="w-full h-full object-cover"
+            style={{
+              transform: `translateY(${parallaxOffset}px)`,
+              transition: 'transform 0.1s ease-out'
+            }}
           />
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
@@ -92,12 +162,16 @@ export default function Index() {
             Профессиональная правовая поддержка компаний и частных лиц
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{animationDelay: '0.6s'}}>
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg">
-              Получить консультацию
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-foreground px-8 py-4 text-lg">
-              Наши услуги
-            </Button>
+            <Link to="/contact-form">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg">
+                Получить консультацию
+              </Button>
+            </Link>
+            <Link to="/services">
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-foreground px-8 py-4 text-lg">
+                Наши услуги
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -108,15 +182,19 @@ export default function Index() {
       </section>
 
       {/* Statistics */}
-      <section className="py-20 bg-secondary/30">
+      <section ref={statsRef} className="py-20 bg-secondary/30">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
             <div className="text-center animate-fade-in">
-              <div className="text-6xl md:text-7xl font-bold text-primary mb-4">20</div>
+              <div className="text-6xl md:text-7xl font-bold text-primary mb-4 animate-count-up">
+                {yearsCount}
+              </div>
               <div className="text-xl text-muted-foreground">лет успешной практики</div>
             </div>
             <div className="text-center animate-fade-in" style={{animationDelay: '0.2s'}}>
-              <div className="text-6xl md:text-7xl font-bold text-primary mb-4">15</div>
+              <div className="text-6xl md:text-7xl font-bold text-primary mb-4 animate-count-up">
+                {experienceCount}
+              </div>
               <div className="text-xl text-muted-foreground">лет средний опыт юриста</div>
             </div>
           </div>
