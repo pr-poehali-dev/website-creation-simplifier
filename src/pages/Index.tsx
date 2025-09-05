@@ -217,77 +217,54 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Services Overview */}
+      {/* Services */}
       <section id="services" className="py-20">
         <div className="container mx-auto px-6">
-          <div className="mb-16">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="h-1 w-12 bg-primary"></div>
-              <h2 className="text-lg text-muted-foreground">Наши услуги</h2>
-            </div>
-            <h3 className="text-4xl md:text-5xl font-bold mb-12 text-foreground max-w-4xl">
-              Мы предоставляем юридические услуги
-              <br />в самых сложных областях права.
-            </h3>
-          </div>
-
-          {/* For Companies */}
-          <div className="mb-16">
-            <h3 className="text-2xl font-bold mb-8 text-foreground">Для компаний</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl">
-              {companyServices.map((service, index) => (
-                <div key={service.id} className="group cursor-pointer animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
-                  <div className="flex items-start gap-4">
-                    <div className="text-4xl font-bold text-primary group-hover:text-primary/80 transition-colors">
-                      {service.id}
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {service.title}
-                      </h4>
-                    </div>
-                  </div>
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-20">
+              {/* Left Column - Categories */}
+              <div className="space-y-20">
+                <div>
+                  <h2 className="text-4xl font-light text-foreground">Для компаний</h2>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* For Individuals */}
-          <div>
-            <h3 className="text-2xl font-bold mb-8 text-foreground">Для частных лиц</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl">
-              {individualServices.map((service, index) => (
-                <div key={service.id} className="group cursor-pointer animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
-                  <div className="flex items-start gap-4">
-                    <div className="text-4xl font-bold text-primary group-hover:text-primary/80 transition-colors">
-                      {service.id}
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {service.title}
-                      </h4>
-                    </div>
-                  </div>
+                <div>
+                  <h2 className="text-4xl font-light text-foreground">Для физических лиц</h2>
                 </div>
-              ))}
-            </div>
-            
-            {/* CTA Button */}
-            <div className="mt-12">
-              <Link to="/services">
-                <Button 
-                  variant="outline" 
-                  className="border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-full transition-all duration-300"
-                >
-                  <div className="flex items-center gap-3">
-                    <div>
-                      <div className="font-medium">Услуги</div>
-                      <div className="text-xs text-muted-foreground">Узнать больше об услугах</div>
-                    </div>
-                    <Icon name="ArrowRight" size={16} />
-                  </div>
-                </Button>
-              </Link>
+              </div>
+
+              {/* Right Column - Services Table */}
+              <div className="space-y-12">
+                {/* Companies Services */}
+                <div className="space-y-1">
+                  {companyServices.map((service, index) => (
+                    <button 
+                      key={service.id} 
+                      className="w-full flex items-center gap-6 py-4 px-2 hover:bg-secondary/20 transition-colors duration-200 text-left rounded-sm group"
+                      onClick={() => window.location.href = `/services/company-${service.id}`}
+                    >
+                      <span className="text-2xl font-light text-primary/60 min-w-[50px] group-hover:text-primary transition-colors">{service.id}</span>
+                      <h3 className="text-lg text-foreground leading-relaxed group-hover:text-primary transition-colors">{service.title}</h3>
+                    </button>
+                  ))}
+                </div>
+                
+                {/* Separator */}
+                <div className="border-t border-border/20 my-8"></div>
+                
+                {/* Individuals Services */}
+                <div className="space-y-1">
+                  {individualServices.map((service, index) => (
+                    <button 
+                      key={service.id} 
+                      className="w-full flex items-center gap-6 py-4 px-2 hover:bg-secondary/20 transition-colors duration-200 text-left rounded-sm group"
+                      onClick={() => window.location.href = `/services/individual-${service.id}`}
+                    >
+                      <span className="text-2xl font-light text-primary/60 min-w-[50px] group-hover:text-primary transition-colors">{service.id}</span>
+                      <h3 className="text-lg text-foreground leading-relaxed group-hover:text-primary transition-colors">{service.title}</h3>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
