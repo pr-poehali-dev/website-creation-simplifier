@@ -223,11 +223,11 @@ export default function Index() {
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-20">
               {/* Left Column - Categories */}
-              <div className="space-y-20">
-                <div>
+              <div className="flex flex-col">
+                <div className="mb-8">
                   <h2 className="text-4xl font-light text-foreground">Для компаний</h2>
                 </div>
-                <div>
+                <div style={{marginTop: '440px'}}>
                   <h2 className="text-4xl font-light text-foreground">Для физических лиц</h2>
                 </div>
               </div>
